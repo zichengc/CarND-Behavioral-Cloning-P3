@@ -12,17 +12,6 @@ The goals / steps of this project are the following:
 * Test that the model successfully drives around track one without leaving the road
 * Summarize the results with a written report
 
-
-[//]: # (Image References)
-
-[image1]: ./examples/placeholder.png "Model Visualization"
-[image2]: ./examples/placeholder.png "Grayscaling"
-[image3]: ./examples/placeholder_small.png "Recovery Image"
-[image4]: ./examples/placeholder_small.png "Recovery Image"
-[image5]: ./examples/placeholder_small.png "Recovery Image"
-[image6]: ./examples/placeholder_small.png "Normal Image"
-[image7]: ./examples/placeholder_small.png "Flipped Image"
-
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
 
@@ -99,18 +88,25 @@ My final model consisted of the following layers:
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Input         		| 160x320x3 image BGR  							| 
-| Convolution 5x5     	| 1x1 stride, valid padding, outputs 28x28x6 	|
+|Lambda                 |                                               |
+|Crop2D                 | Outputs 90x320x3                              |
+| Convolution 5x5     	| 2x2 stride, valid padding, outputs 43x158x24 	|
 | RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 14x14x6 				|
-| Convolution 5x5	    | 1x1 stride, valid padding, outputs 10x10x16 |
-| Max pooling	      	| 2x2 stride,  outputs 5x5x16		|
-| Flattening		|        									|
-|Dropout |  | rate: 0.2
-| Fully connected				| outputs 120        									|
-|RELU					|												|
-|Fully connected					|	outputs 84											|
-|Fully connected| outputs 43|
-|Softmax| |
+| Convolution 5x5     	| 2x2 stride, valid padding, outputs 20x77x36 	|
+| RELU					|												|
+| Convolution 5x5     	| 2x2 stride, valid padding, outputs 8x37x48	|
+| RELU					|												|
+| Convolution 5x5     	| 1x1 stride, valid padding, outputs 6x35x64	|
+| RELU					|												|
+| Convolution 5x5     	| 1x1 stride, valid padding, outputs 4x33x64 	|
+| RELU					|												|
+| Flattening		    |        									    |
+|Dropout                | rate: 0.2                                     |
+|Fully connected		| outputs 100        							|
+|Fully connected		| outputs 50									|
+|Fully connected        | outputs 10                                    |
+|Fully connected        | outputs 1                                     |
+
  
 
 #### 3. Creation of the Training Set & Training Process
