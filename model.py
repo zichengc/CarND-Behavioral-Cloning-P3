@@ -12,6 +12,10 @@ from keras.models import Sequential
 from keras.layers import (Dense, Flatten, Conv2D, Lambda, Cropping2D, Dropout)
 from sklearn.model_selection import train_test_split
 
+DATA_DIR = '../data/'
+## correction parameter for augmenting left and right camera images
+CORRECT= 0.25
+
 def generator(samples, batch_size=32):
     num_samples = len(samples)
     while 1: # Loop forever so the generator never terminates
@@ -23,7 +27,7 @@ def generator(samples, batch_size=32):
             angles = []
             for batch_sample in batch_samples:
                 name = batch_sample[0]
-                image = cv2.imread('../data/' + name)
+                image = cv2.imread(DATA_DIR + name)
                 images.append(image)
                 angles.append(batch_sample[1])
 
@@ -35,8 +39,7 @@ def generator(samples, batch_size=32):
 def main():
     ### collect image files and steering angles from log file
     samples = []
-    correct = 0.25
-    with open('../data/driving_log.csv') as f:
+    with open(DATA_DIR + '/driving_log.csv') as f:
         reader = csv.reader(f)
         ### skip header
         next(reader)
@@ -44,7 +47,7 @@ def main():
         for line in reader:
             for i in range(3):
                 filename = line[i].strip()
-                steering = float(line[3]) + direc[i]*correct
+                steering = float(line[3]) + direc[i]*CORRECT
                 samples.append([filename,steering])
 
     train_samples, validation_samples = train_test_split(samples, test_size=0.2)
@@ -77,14 +80,15 @@ def main():
                  loss = 'mse')
 
     img_shape = (160,320,3)
-    # model = bcnn(img_shape)
+    ### show model summary
     model.summary()
-
+    ### train the constructed model
     model.fit_generator(train_generator,
                         steps_per_epoch=math.ceil(len(train_samples)/batch_size),
                         validation_data=validation_generator,
                         validation_steps=math.ceil(len(validation_samples)/batch_size),
                         epochs=5, verbose=1)
+    ### save trained model                     
     model.save('model.h5')
 
 if __name__ == '__main__':
