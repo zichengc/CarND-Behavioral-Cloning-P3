@@ -3,6 +3,10 @@
 
 ---
 
+[image1]: ./examples/drive_left.jpg "Left Camera"
+[image2]: ./examples/drive_right.jpg  "Right Camera"
+[image3]: ./examples/hard_track.jpg "Challenge Road"
+
 **Behavioral Cloning Project**
 
 The goals / steps of this project are the following:
@@ -60,22 +64,30 @@ The model was trained and validated on different data sets with a split ratio of
 #### 3. Model parameter tuning
 
 The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 79).
-The dataset included side carmera images and a correction value needs to be applied to the steering angles to make the training data valid. Values ranging from 1.0 to 3.0 with increments of 0.5 are tested and the value is set to 2.5 (model.py line 17)
+The dataset included side carmera images and a correction value needs to be applied to the steering angles to make the training data valid. Values ranging from 0.10 to 0.3 with increments of 0.005 are tested and the value is set to 0.25 (model.py line 17).
+I tested various number of learning rate for Adam and used a learning rate of 0.0001. 
 #### 4. Appropriate training data
 
-Given 
+Given sample data combined with demonstration data acquired using the simulator. 
+I also applied image augmentation by using horizontally flipped image, in which case the sign of the steering angle is reversed. 
+Side carmera images are also includede with a procedure desribed in step 3 above.
 
+![image1]
+![image2]
+
+I also collected some driving data from the challenging track.
+
+![image3]
 ### Model Architecture and Training Strategy
 
 #### 1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to ...
 
-My first step was to use a convolution neural network model similar to the ... I thought this model might be appropriate because ...
+My first step was to use a convolution neural network model similar to the NVIDIA end-to-end self-driving car framework. I thought this model might be appropriate because it is a well-known application of behavior cloning and has shown success in a physical application.
 
 In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
 
-To combat the overfitting, I modified the model so that ...
+To combat the overfitting, I modified the model by adding a dropout layer. 
 
 Then I ... 
 
