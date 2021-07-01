@@ -89,9 +89,7 @@ In order to gauge how well the model was working, I split my image and steering 
 
 To combat the overfitting, I modified the model by adding a dropout layer. 
 
-Then I ... 
-
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track... to improve the driving behavior in these cases, I ....
+The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track especially near the wide turns close to water area. To improve the driving behavior in these cases, I added demonstrations by driving properly and driving to save from failure.
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
