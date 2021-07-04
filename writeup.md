@@ -67,15 +67,16 @@ The model used an adam optimizer, so the learning rate was not tuned manually (m
 The dataset included side carmera images and a correction value needs to be applied to the steering angles to make the training data valid. Values ranging from 0.10 to 0.3 with increments of 0.005 are tested and the value is set to 0.25 (model.py line 17).
 I tested various number of learning rate for Adam and used a learning rate of 0.0001. 
 #### 4. Appropriate training data
+I used the sample dataset as the initial training dataset. Side-camera images are also added after correcting for steering angles to expand the training dataset. Then, I included the horizontally reversed images and steering angles. 
+While testing the performance of the model in autonomous mode, I kept track of the situations where the model failed to driving properly. Then, I collected more training data by recording demonstrative runs around tough corners. 
 
-Given sample data combined with demonstration data acquired using the simulator. 
-I also applied image augmentation by using horizontally flipped image, in which case the sign of the steering angle is reversed. 
-Side carmera images are also includede with a procedure desribed in step 3 above.
+Here are the two examples of challenging corners.
+In both cases, the model initally failed to apply enough steering to keep the vihecle on the track. I started recordinng the action when the car is on the outer track. I drove the car to the middle of the track and then exist the turn as smoth as possible.
 
 ![image1]
 ![image2]
 
-I also collected some driving data from the challenging track.
+I also collected some driving data from the challenging track which also helped the model to handle tough corners.
 
 ![image3]
 ### Model Architecture and Training Strategy
@@ -122,8 +123,5 @@ My final model consisted of the following layers:
 
 #### 3. Creation of the Training Set & Training Process
 
-I used the sample dataset as the training dataset. Side-camera images are also added after correcting for steering angles to expand the training dataset and include more driving scenarios. Then, I included the horizontally reversed images and steering angles. 
 
-When building the model, I refered to the preprocessing teniques suggested in the tutorial and started with Lambda and Crop layers. Then I applied the NVIDA end-to-end model framework since it is a well=known and tested framework for behavior cloning. I added a dropout layer as I experienced overfit when monitoring the training process. 
-Then I tested the performance of the model for different values of the correction parameter and recorded a successful run on track 1 afterwards.
 
